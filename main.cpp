@@ -2,8 +2,8 @@
 #include "Pixelmap.hpp"
 #include "Ant.hpp"
 
-#define WIN_WIDTH (int)640
-#define WIN_HEIGHT (int)480
+const int WIN_WIDTH = 640;
+const int WIN_HEIGHT = 480;
 
 
 int main(int argc, char ** argv)
@@ -19,7 +19,7 @@ int main(int argc, char ** argv)
     SDL_Init(SDL_INIT_VIDEO);
 
 	// Window creation
-    SDL_Window * window = SDL_CreateWindow("sdl2 pixel drawing",
+    SDL_Window * window = SDL_CreateWindow("Ant farm",
         SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIN_WIDTH, WIN_HEIGHT, 0);
 
 
@@ -46,15 +46,16 @@ int main(int argc, char ** argv)
 
 	// Create Pixel buffer for drawing to window and set bg to white
 	Pixelmap *pixelmap = new Pixelmap(WIN_WIDTH,WIN_HEIGHT,sizeof(Uint32),&colorWhite);
+	int x = 0;
 
     while (!quit)
     {
-		// Event logic
-		
-		
+
+		x++;
+		pixelmap->setPixel(x,x,&colorRed);
 		
 		// Copy pixels[uint32] to texture
-		SDL_UpdateTexture(texture, NULL, pixelmap->pixeldata, WIN_WIDTH * sizeof(u_int32_t));
+		SDL_UpdateTexture(texture, NULL, pixelmap->pixeldata, WIN_WIDTH * sizeof(Uint32));
 		// Clear window through renderer
 		SDL_RenderClear(renderer);
 		// Copy texture to window (whole screen)
